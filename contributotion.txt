@@ -1,3 +1,4 @@
-Contibution of members
+Member contribution:
 
-Lexer - 50% Aum 50% Venkat
+Lexer - Venkat and Aum
+Lexical and symantic analysis - Swati and Aishwarya
