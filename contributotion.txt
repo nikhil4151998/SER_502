@@ -1,4 +1,4 @@
 Member contribution:
 
-Lexer - Venkat and Aum
+Lexer, parsing expressions - Venkat and Aum
 Lexical and symantic analysis - Swati and Aishwarya
