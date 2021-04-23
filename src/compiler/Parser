@@ -1,5 +1,5 @@
 :-use_rendering(svgtree).
-:-table e/3 term/3.
+:-table e/3, term/3.
 p(t_p(X))-->['start'],k(X),['end'].
 k(t_block(t_statements(X),t_block(Y)))-->['{'],statements(X),['}'], k(Y).
  k(t_block(X))-->statements(X).
