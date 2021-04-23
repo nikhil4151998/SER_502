@@ -9,10 +9,15 @@ Team Members:
 The language developed is called "SYNC".
 
 Structure of repository:
+
 src/compiler/ - 
+
 src/runtime/ - 
+
 data/ - sample programs for SYNC.
+
 doc/- documents related to the project.
+
 
 System on which your compiler and runtime are built - Windows
 
