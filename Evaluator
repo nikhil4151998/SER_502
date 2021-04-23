@@ -68,7 +68,7 @@ eval_expr(/(X,Y),Env,NewEnv) :- eval_expr(X,Env,Env1), eval_expr(Y,Env,Env2), Ne
 eval_expr(t_id(X),Env,NewEnv) :- eval_id(X,Env,NewEnv).
 eval_expr(t_num(X),_Env,X).
 eval_expr(t_t(X),Env,NewEnv) :- eval_t(X,Env,NewEnv).
-% eval_id(t_id(X),Env,NewEnv) :- 
+
 
 
 lookup(Id, [(Id,Val)|_], Val). 
