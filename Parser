@@ -1,0 +1,283 @@
+:-use_rendering(svgtree).
+:-table e/3.
+p(t_p(X))-->['start'],k(X),['end'].
+k(t_block(t_statements(X),t_block(Y)))-->['{'],statements(X),['}'], k(Y).
+ k(t_block(X))-->statements(X).
+statements(t_declare(X))--> d(X).
+ statements(t_initialize(X))-->i(X).
+ statements(t_assign(X))-->a(X).
+statements(t_ifstatement(X))-->if(X).
+statements(t_while(t_bool(X),t_block(Y)))-->['while'],b(X),['{'],k(Y),['}'].
+statements(t_forstatement(X))-->for(X).
+statements(t_printstatement(X))--> print(X).
+statements(t_unary(X))-->u(X).
+statements(t_statements(X))--> statements(X).
+d(t_iddeclare(X))-->['val'],id(X),['$'].
+i(t_idinitializen(t_id(X),t_n(Y)))-->['val'],id(X),['='],n(Y),['$'].
+i(t_idinitializeb(t_id(X),t_b(Y)))-->['val'],id(X),['='],b(Y),['$'].
+i(t_idinitializess(t_id(X),t_ss(Y)))-->['val'],id(X),['='],ss(Y),['$'].
+a(t_assigne(t_id(X),t_e(Y)))-->id(X),['='],e(Y),['$'].
+a(t_assignb(t_id(X),t_b(Y)))-->id(X),['='],b(Y),['$'].
+a(t_assignss(t_id(X),t_ss(Y)))-->id(X),['='],ss(Y),['$'].
+u(t_unaryadd(X))-->id(X),['+’,’+'],['$'].
+u(t_unarysub(X))-->id(X),['-‘,’-'],['$'].
+if(t_ifelse(t_b(X),t_k(Y),t_else(Z)))-->['if'],b(X),['{'],k(Y),['}'],else_case(Z).
+if(t_ifelseif(t_b(X),t_k(Y),t_elseif(Z)))-->['if'],b(X),['{'],k(Y),['}'],else_if_case(Z).
+else_if_case(t_elseifelseif(t_b(X),t_k(Y),t_elseif(Z))) --> ['else','if'],b(X),['{'],k(Y),['}'],else_if_case(Z).
+else_if_case(t_elseifelse(t_b(X),t_k(Y),t_else(Z))) --> ['else','if'],b(X),['{'],k(Y),['}'],else_case(Z).
+else_case(t_else(t_k(X)))--> ['else'],['{'],k(X),['}'].
+else_case(t_elseempty)--> [].
+for(t_fornormal(t_i(X),t_b(Y),t_u(U),t_k(V)))--> ['for','('], i(X), [';'], b(Y), [';'], u(U),[')','{'], k(V), ['}'].
+  for(t_forrange(t_id(X),t_e(Y),t_e(Z),t_k(U)))-->  ['for'], id(X), ['in','range','('], e(Y), [','], e(Z),[')','{'], k(U), ['}'].
+print(t_printss(X))-->['print','('],ss(X),[')','$'].
+print(t_printid(X))--> ['print','('],id(X),[')','$'].
+print(t_printssid(t_ss(X),t_id(Y)))--> ['print','('],ss(X),id(Y),[')','$'].
+b(t_true)-->['true'].
+b(t_false)-->['false'].
+b(t_notb(t_b(X)))-->['not'],b(X).
+b(t_borb(t_b(X),t_b(Y)))-->b(X),['or'],b(Y).
+b(t_bandb(t_b(X),t_b(Y)))-->b(X),['and'],b(Y).
+b(t_bc(X))-->c(X).
+c(t_lt(t_e(X),t_e(Y)))-->e(X),['<'],e(Y).
+c(t_gt(t_e(X),t_e(Y)))-->e(X),['>'],e(Y).
+c(t_lte(t_e(X),t_e(Y)))--> e(X),['<','='], e(Y).
+c(t_gte(t_e(X),t_e(Y)))--> e(X),['>','='], e(Y).
+c(t_ee(t_e(X),t_e(Y)))--> e(X),['=','='],e(Y).
+e(t_add(X,Y))--> e(X), [+], term(Y).
+e(t_sub(X,Y))--> e(X), [-], term(Y).
+e(X) --> term(X).
+term(t_mul(X,Y)) --> term(X), [*], factor(Y).
+ term(t_div(X,Y))  --> term(X), [/], factor(Y).
+term(X) --> factor(X).
+factor(X)--> ['('], e(X), [')'].  
+factor(X)-->t(X).
+factor(X)--> n(X).
+factor(X)--> id(X).
+id(t_id(a,X))-->[a],idd(X).
+id(t_id(b,X))--> [b],idd(X).
+id(t_id(c,X))--> [c],idd(X).
+id(t_id(d,X))--> [d],idd(X).
+id(t_id(e,X))--> [e],idd(X).
+id(t_id(f,X))--> [f],idd(X).
+id(t_id(g,X))--> [g],idd(X).
+id(t_id(h,X))--> [h],idd(X).
+id(t_id(i,X))--> [i],idd(X).
+id(t_id(j,X))--> [j],idd(X).
+id(t_id(k,X))--> [k],idd(X).
+id(t_id(l,X))--> [l],idd(X).
+id(t_id(m,X))--> [m],idd(X).
+id(t_id(n,X))--> [n],idd(X).
+id(t_id(o,X))--> [o],idd(X).
+id(t_id(p,X))--> [p],idd(X).
+id(t_id(q,X))--> [q],idd(X).
+id(t_id(r,X))--> [r],idd(X).
+id(t_id(s,X))--> [s],idd(X).
+id(t_id(t,X))--> [t],idd(X).
+id(t_id(u,X))--> [u],idd(X).
+id(t_id(v,X))--> [v],idd(X).
+id(t_id(w,X))--> [w],idd(X).
+id(t_id(x,X))--> [x],idd(X).
+id(t_id(y,X))--> [y],idd(X).
+id(t_id(z,X))--> [z],idd(X).
+id(t_id('A',X))--> ['A'],idd(X).
+id(t_id('B',X))--> ['B'],idd(X).
+id(t_id('C',X))--> ['C'],idd(X).
+id(t_id('D',X))--> ['D'],idd(X).
+id(t_id('E',X))--> ['E'],idd(X).
+id(t_id('F',X))--> ['F'],idd(X).
+id(t_id('G',X))--> ['G'],idd(X).
+id(t_id('H',X))--> ['H'],idd(X).
+id(t_id('I',X))--> ['I'],idd(X).
+id(t_id('J',X))--> ['J'],idd(X).
+id(t_id('K',X))--> ['K'],idd(X).
+id(t_id('L',X))--> ['L'],idd(X).
+id(t_id('M',X))--> ['M'],idd(X).
+id(t_id('N',X))--> ['N'],idd(X).
+id(t_id('O',X))--> ['O'],idd(X).
+id(t_id('P',X))--> ['P'],idd(X).
+id(t_id('Q',X))--> ['Q'],idd(X).
+id(t_id('R',X))--> ['R'],idd(X).
+id(t_id('S',X))--> ['S'],idd(X).
+id(t_id('T',X))--> ['T'],idd(X).
+id(t_id('U',X))--> ['U'],idd(X).
+id(t_id('V',X))--> ['V'],idd(X).
+id(t_id('W',X))--> ['W'],idd(X).
+id(t_id('X',X))--> ['X'],idd(X).
+id(t_id('Y',X))--> ['Y'],idd(X).
+id(t_id('Z',X))--> ['Z'],idd(X).
+
+idd(t_idd(a,X))-->[a],idd(X).
+idd(t_idd(b,X))--> [b],idd(X).
+idd(t_idd(c,X))--> [c],idd(X).
+idd(t_idd(d,X))--> [d],idd(X).
+idd(t_idd(e,X))--> [e],idd(X).
+idd(t_idd(f,X))--> [f],idd(X).
+idd(t_idd(g,X))--> [g],idd(X).
+idd(t_idd(h,X))--> [h],idd(X).
+idd(t_idd(i,X))--> [i],idd(X).
+idd(t_idd(j,X))--> [j],idd(X).
+idd(t_idd(k,X))--> [k],idd(X).
+idd(t_idd(l,X))--> [l],idd(X).
+idd(t_idd(m,X))--> [m],idd(X).
+idd(t_idd(n,X))--> [n],idd(X).
+idd(t_idd(o,X))--> [o],idd(X).
+idd(t_idd(p,X))--> [p],idd(X).
+idd(t_idd(q,X))--> [q],idd(X).
+idd(t_idd(r,X))--> [r],idd(X).
+idd(t_idd(s,X))--> [s],idd(X).
+idd(t_idd(t,X))--> [t],idd(X).
+idd(t_idd(u,X))--> [u],idd(X).
+idd(t_idd(v,X))--> [v],idd(X).
+idd(t_idd(w,X))--> [w],idd(X).
+idd(t_idd(x,X))--> [x],idd(X).
+idd(t_idd(y,X))--> [y],idd(X).
+idd(t_idd(z,X))--> [z],idd(X).
+idd(t_idd('A',X))--> ['A'],idd(X).
+idd(t_idd('B',X))--> ['B'],idd(X).
+idd(t_idd('C',X))--> ['C'],idd(X).
+idd(t_idd('D',X))--> ['D'],idd(X).
+idd(t_idd('E',X))--> ['E'],idd(X).
+idd(t_idd('F',X))--> ['F'],idd(X).
+idd(t_idd('G',X))--> ['G'],idd(X).
+idd(t_idd('H',X))--> ['H'],idd(X).
+idd(t_idd('I',X))--> ['I'],idd(X).
+idd(t_idd('J',X))--> ['J'],idd(X).
+idd(t_idd('K',X))--> ['K'],idd(X).
+idd(t_idd('L',X))--> ['L'],idd(X).
+idd(t_idd('M',X))--> ['M'],idd(X).
+idd(t_idd('N',X))--> ['N'],idd(X).
+idd(t_idd('O',X))--> ['O'],idd(X).
+idd(t_idd('P',X))--> ['P'],idd(X).
+idd(t_idd('Q',X))--> ['Q'],idd(X).
+idd(t_idd('R',X))--> ['R'],idd(X).
+idd(t_idd('S',X))--> ['S'],idd(X).
+idd(t_idd('T',X))--> ['T'],idd(X).
+idd(t_idd('U',X))--> ['U'],idd(X).
+idd(t_idd('V',X))--> ['V'],idd(X).
+idd(t_idd('W',X))--> ['W'],idd(X).
+idd(t_idd('X',X))--> ['X'],idd(X).
+idd(t_idd('Y',X))--> ['Y'],idd(X).
+idd(t_idd('Z',X))--> ['Z'],idd(X).
+idd(t_idd(1,X))--> [1],idd(X).
+idd(t_idd(2,X))--> [2],idd(X).
+idd(t_idd(3,X))--> [3],idd(X).
+idd(t_idd(4,X))--> [4],idd(X).
+idd(t_idd(5,X))--> [5],idd(X).
+idd(t_idd(6,X))--> [6],idd(X).
+idd(t_idd(7,X))--> [7],idd(X).
+idd(t_idd(8,X))--> [8],idd(X).
+idd(t_idd(9,X))--> [9],idd(X).
+idd(t_idd(0,X))--> [0],idd(X).
+idd(t_idd([]))--> [].
+n(t_n(0,X))-->[0],nn(X).
+n(t_n(1,X))-->[1],nn(X).
+n(t_n(2,X))-->[2],nn(X).
+n(t_n(3,X))-->[3],nn(X).
+n(t_n(4,X))-->[4],nn(X).
+n(t_n(5,X))-->[5],nn(X).
+n(t_n(6,X))-->[6],nn(X).
+n(t_n(7,X))-->[7],nn(X).
+n(t_n(8,X))-->[8],nn(X).
+n(t_n(9,X))-->[9],nn(X).
+nn(t_nn(0,X))-->[0],nn(X).
+nn(t_nn(1,X))-->[1],nn(X).
+nn(t_nn(2,X))-->[2],nn(X).
+nn(t_nn(3,X))-->[3],nn(X).
+nn(t_nn(4,X))-->[4],nn(X).
+nn(t_nn(5,X))-->[5],nn(X).
+nn(t_nn(6,X))-->[6],nn(X).
+nn(t_nn(7,X))-->[7],nn(X).
+nn(t_nn(8,X))-->[8],nn(X).
+nn(t_nn(9,X))-->[9],nn(X).
+nn(t_nn([]))--> [].
+t(t_ternary(t_b(X),t_e(Y),t_e(Z)))-->['('],b(X),[')','?','('],e(Y),[':'],e(Z),[')'].
+
+ss(t_ss(X))-->[‘”’],s(X),[‘”’].
+
+s(t_s(a,X))-->[a],s(X).
+s(t_s(b,X))-->[b],s(X).
+s(t_s(c,X))-->[c],s(X).
+s(t_s(d,X))-->[d],s(X).
+s(t_s(e,X))-->[e],s(X).
+s(t_s(f,X))-->[f],s(X).
+s(t_s(g,X))-->[g],s(X).
+s(t_s(h,X))-->[h],s(X).
+s(t_s(i,X))-->[i],s(X).
+s(t_s(j,X))-->[j],s(X).
+s(t_s(k,X))-->[k],s(X).
+s(t_s(l,X))-->[l],s(X).
+s(t_s(m,X))-->[m],s(X).
+s(t_s(n,X))-->[n],s(X).
+s(t_s(o,X))-->[o],s(X).
+s(t_s(p,X))-->[p],s(X).
+s(t_s(q,X))-->[q],s(X).
+s(t_s(r,X))-->[r],s(X).
+s(t_s(s,X))-->[s],s(X).
+s(t_s(t,X))-->[t],s(X).
+s(t_s(u,X))-->[u],s(X).
+s(t_s(v,X))-->[v],s(X).
+s(t_s(w,X))-->[w],s(X).
+s(t_s(x,X))-->[x],s(X).
+s(t_s(y,X))-->[y],s(X).
+s(t_s(z,X))-->[z],s(X).
+s(t_s('A',X))-->['A'],s(X).
+s(t_s('B',X))-->['B'],s(X).
+s(t_s('C',X))-->['C'],s(X).
+s(t_s('D',X))-->['D'],s(X).
+s(t_s('E',X))-->['E'],s(X).
+s(t_s('F',X))-->['F'],s(X).
+s(t_s('G',X))-->['G'],s(X).
+s(t_s('H',X))-->['H'],s(X).
+s(t_s('I',X))-->['I'],s(X).
+s(t_s('J',X))-->['J'],s(X).
+s(t_s('K',X))-->['K'],s(X).
+s(t_s('L',X))-->['L'],s(X).
+s(t_s('M',X))-->['M'],s(X).
+s(t_s('N',X))-->['N'],s(X).
+s(t_s('O',X))-->['O'],s(X).
+s(t_s('P',X))-->['P'],s(X).
+s(t_s('Q',X))-->['Q'],s(X).
+s(t_s('R',X))-->['R'],s(X).
+s(t_s('S',X))-->['S'],s(X).
+s(t_s('T',X))-->['T'],s(X).
+s(t_s('U',X))-->['U'],s(X).
+s(t_s('V',X))-->['V'],s(X).
+s(t_s('W',X))-->['W'],s(X).
+s(t_s('X',X))-->['X'],s(X).
+s(t_s('Y',X))-->['Y'],s(X).
+s(t_s('Z',X))-->['Z'],s(X).
+s(t_s(0,X))-->[0],s(X).
+s(t_s(1,X))-->[1],s(X).
+s(t_s(2,X))-->[2],s(X).
+s(t_s(3,X))-->[3],s(X).
+s(t_s(4,X))-->[4],s(X).
+s(t_s(59,X))-->[5],s(X).
+s(t_s(6,X))-->[6],s(X).
+s(t_s(7,X))-->[7],s(X).
+s(t_s(8,X))-->[8],s(X).
+s(t_s(9,X))-->[9],s(X).
+s(t_s([]))--> [].
+
+s(t_s(‘@’,X))-->[‘@’], s(X).
+s(t_s(‘#’,X))-->[‘#’] ,s(X).
+s(t_s(‘$’,X))-->[‘$’] ,s(X).
+s(t_s(‘^’,X))-->[‘^’] ,s(X).
+s(t_s(‘&’,X))-->[‘&’] ,s(X).
+s(t_s(‘*’,X))-->[‘*’] ,s(X).
+s(t_s(‘-’,X))-->[‘-‘],s(X).
+s(t_s(‘=’,X))-->[‘=’] ,s(X).
+s(t_s(‘+’,X))-->[‘+’] ,s(X).
+s(t_s(‘,’,X))-->[‘,’] ,s(X).
+s(t_s(‘<’,X))-->[‘<’] ,s(X).
+s(t_s(‘.’,X))-->[‘.’] ,s(X).
+s(t_s(‘>’,X))-->[‘>’] ,s(X).
+s(t_s(‘/’,X))-->[‘/’] ,s(X).
+s(t_s(‘?’,X))-->[‘?’] ,s(X).
+s(t_s(‘;’,X))-->[‘;’] ,s(X).
+s(t_s(‘:’,X))-->[‘:’] ,s(X).
+
+s(t_s(‘/’,X))-->[‘\’] ,s(X).
+
+s(t_s([],X))-->[],s(X).
+s(t_s([]))-->[].
+
