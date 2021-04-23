@@ -15,5 +15,7 @@ data/ - sample programs for SYNC.
 doc/- documents related to the project.
 
 System on which your compiler and runtime are built - Windows
+
 Tools used - SWI-Prolog, 
+
 Link to YouTube video - 
