@@ -1,5 +1,7 @@
 %--------------------EVALUATOR----------------------
-@Author – Aishwarya Prabha Ramakrishnan
+@Author â€“ Aishwarya Prabha Ramakrishnan
+
+% In Progress
 
 program_eval(P,X,Y,Z) :- update(x,X,[],Env1), update(y,Y,Env1,Env), eval_p(P,Env,Z).  
 eval_p(t_p(X),Env,NewEnv) :- eval_k(X,Env,Env1), lookup(z,Env1,NewEnv).
